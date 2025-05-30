@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+    --color-dark-purple: #2E073F;
+    --color-grape: #7A1CAC;
+    --color-medium-orchid: #AD49E1;
+    --color-pale-lavender: #EBD3F8;
+}
+
+.btn-primary {
+    @apply bg-medium-orchid text-pale-lavender font-medium w-full py-2 rounded-md hover:bg-grape transition duration-200 cursor-pointer;
+}
+
+.form-input {
+    @apply px-4 py-2 rounded-md border border-pale-lavender w-full placeholder-pale-lavender/50 text-pale-lavender outline-none focus:shadow focus:shadow-medium-orchid;
+}
+
+.form-label {
+    @apply font-medium text-pale-lavender mb-1.5 block;
+}

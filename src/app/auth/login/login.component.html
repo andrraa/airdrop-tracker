@@ -1,0 +1,60 @@
+<div
+  class="h-dvh overflow-hidden max-sm:px-6 flex flex-col items-center justify-center bg-dark-purple"
+>
+  <div class="mb-4">
+    <h1 class="text-pale-lavender font-bold text-[28px]">Airdrop Tracker</h1>
+  </div>
+
+  <div
+    class="border border-pale-lavender shadow-md shadow-medium-orchid md:w-[360px] rounded-lg p-4 max-sm:w-full"
+  >
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="mb-2">
+        <label for="email" class="form-label">Email</label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          autofocus
+          class="form-input"
+          formControlName="email"
+          autocomplete="email"
+        />
+
+        <app-form-error [control]="loginForm.get('email')" label="Email" />
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          class="form-input"
+          formControlName="password"
+          autocomplete="off"
+        />
+
+        <app-form-error
+          [control]="loginForm.get('password')"
+          label="Password"
+        />
+      </div>
+
+      <button type="submit" class="btn-primary">Login</button>
+    </form>
+
+    <div class="mt-2">
+      <span class="text-pale-lavender/80 text-sm">
+        Don't have an account?
+        <a href="auth/register" class="text-medium-orchid hover:underline">
+          Register
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
