@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+/* ROBOTO FONT */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* TAILWINDCSS */
+@import "tailwindcss";
+@plugin "tailwindcss-primeui";
+
+/* CUSTOM STYLE */
+@theme {
+    --font-lato: "Lato", sans-serif;
+}
+
+/* s: FORM STYE */
+.form-label {
+    @apply text-white tracking-wide px-0.5 text-[15px];
+}
+
+.form-input {
+    @apply px-4 py-2 bg-gray-900/70 placeholder-white/50 w-full rounded-lg outline-none text-white/70;
+}
+
+.form-submit {
+    @apply w-full py-2 rounded-lg text-white bg-blue-600 cursor-pointer hover:bg-blue-700 transition duration-300 font-medium tracking-wide;
+}
+
+.form-error {
+    @apply text-sm tracking-wider text-red-600 px-0.5 py-1;
+}
+
+.form-required {
+    @apply text-red-500;
+}
+/* e: FORM STYLE */
+
+/* s: BUTTON STYLE */
+.outline-btn-primary {
+    @apply border border-blue-500 text-blue-500 px-4 py-2 text-sm rounded-lg cursor-pointer hover:bg-blue-500/10 transition duration-300 tracking-wider;
+}
+
+.outline-btn-secondary {
+    @apply border border-white/50 text-white/50 px-4 py-2 text-sm rounded-lg cursor-pointer hover:bg-white/10 transition duration-300 tracking-wider;
+}
+/* e: BUTTON STYLE */

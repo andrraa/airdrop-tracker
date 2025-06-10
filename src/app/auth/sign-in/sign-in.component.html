@@ -1,0 +1,101 @@
+<div
+  class="h-dvh bg-gray-800/95 max-sm:px-8 flex flex-col items-center justify-center font-lato"
+>
+  <div class="card">
+    <div class="bg-gray-900/70 p-4 rounded-lg w-fit mx-auto">
+      <img src="./images/rocket.png" alt="rocket" width="30" height="30" />
+    </div>
+
+    <div class="py-4 text-center">
+      <span class="block text-white text-xl font-medium tracking-wide mb-1">
+        Welcome Back
+      </span>
+      <span class="text-white/70 text-sm tracking-wide">
+        Don't have an account yet?
+        <a
+          href="/auth/sign-up"
+          class="text-white hover:underline text-sm font-medium"
+          >Sign Up</a
+        >
+      </span>
+    </div>
+
+    <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+      <div class="pb-2">
+        <label for="email" class="form-label">
+          Email
+          <span class="form-required">*</span>
+        </label>
+        <div class="relative mt-1">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+            class="form-input !pl-[52px]"
+            autofocus
+            autocomplete="off"
+            formControlName="email"
+          />
+          <div
+            class="absolute inset-y-[23px] left-0 pl-4 flex items-center pointer-events-none"
+          >
+            <i-feather name="mail" class="text-white/70 !w-[18px]" />
+          </div>
+        </div>
+        <span
+          *ngIf="validationErrors.email?.length"
+          class="form-error"
+          >{{validationErrors.email?.[0]}}</span
+        >
+        <app-validation [control]="signInForm.get('email')" label="Email" />
+      </div>
+
+      <div class="pb-6">
+        <label for="password" class="form-label">
+          Password
+          <span class="form-required">*</span>
+        </label>
+        <div class="relative mt-1">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            class="form-input !pl-[52px]"
+            autocomplete="off"
+            formControlName="password"
+          />
+          <div
+            class="absolute inset-y-[23px] left-0 pl-4 flex items-center pointer-events-none"
+          >
+            <i-feather name="lock" class="text-white/70 !w-[18px]" />
+          </div>
+        </div>
+        <span
+          *ngIf="validationErrors.password?.length"
+          class="form-error"
+          >{{validationErrors.password?.[0]}}</span
+        >
+        <app-validation
+          [control]="signInForm.get('password')"
+          label="Password"
+        />
+      </div>
+
+      <button class="form-submit">
+        @if (isLoading) { Loading ... } @else { Sign In }
+      </button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="pt-3">
+    <h2 class="text-white/70 text-sm tracking-wide">
+      &copy; Copyright 2025 Airdrop Tracker
+    </h2>
+  </footer>
+</div>
+
+<!-- Toast -->
+<p-toast class="w-[80%]" />
