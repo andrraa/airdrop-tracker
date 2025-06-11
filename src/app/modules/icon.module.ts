@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { FeatherModule } from 'angular-feather';
 import {
+  Edit,
   Home,
   Lock,
   LogOut,
   Mail,
   Menu,
+  PlusSquare,
   Settings,
+  Trash2,
   User,
   Users,
 } from 'angular-feather/icons';
@@ -22,6 +25,9 @@ const icons = {
   Users,
   LogOut,
   Settings,
+  PlusSquare,
+  Edit,
+  Trash2
 };
 
 @NgModule({

@@ -25,16 +25,19 @@
 <!-- DATA -->
 <div
   *ngIf="!isLoading"
-  class="mt-8 p-1 bg-gray-800 rounded-lg shadow-md shadow-gray-900 overflow-x-auto"
+  class="mt-8 rounded-md shadow-md overflow-x-auto border border-white/50"
 >
   <table class="w-full table">
     <thead>
-      <tr class="text-white">
-        <th class="p-3 text-left text-sm tracking-wide">#</th>
-        <th class="p-3 text-left text-sm tracking-wide">Name</th>
-        <th class="p-3 text-left text-sm tracking-wide">Link</th>
-        <th class="p-3 text-left text-sm tracking-wide">Login Type</th>
-        <th class="p-3 text-left text-sm tracking-wide">Wallet</th>
+      <tr class="text-white border-b border-b-white/50">
+        <th class="p-3 text-left text-sm tracking-wider">#</th>
+        <th class="p-3 text-left text-sm tracking-wider">Name</th>
+        <th class="p-3 text-left text-sm tracking-wider">Account</th>
+        <th class="p-3 text-left text-sm tracking-wider">Type</th>
+        <th class="p-3 text-left text-sm tracking-wider">Wallet</th>
+        <th class="p-3 text-left text-sm tracking-wider">Last Access</th>
+        <th class="p-3 text-left text-sm tracking-wider">Link</th>
+        <th class="p-3 text-left text-sm tracking-wider">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -47,13 +50,25 @@
             {{ parent.name }}
           </td>
           <td class="p-3 text-left text-sm tracking-wide">
-            {{ parent.link }}
-          </td>
-          <td class="p-3 text-left text-sm tracking-wide">
             {{ parent.loginType }}
           </td>
           <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.type }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
             {{ parent.wallet }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.type }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            <a [routerLink]="parent.link" target="_blank" class="text-sm px-2 py-1 rounded-md border mr-2">Faucet</a>
+            <a [routerLink]="parent.link" target="_blank" class="text-sm px-2 py-1 rounded-md border">Website</a>
+          </td>
+          <td class="p-3 text-left flex items-center gap-2">
+            <a href=""><i-feather name="plus-square"/></a>
+            <a href=""><i-feather name="edit"/></a>
+            <a href=""><i-feather name="trash2"/></a>
           </td>
         </tr>
 
@@ -63,7 +78,8 @@
             {{ child.name }}
           </td>
           <td class="p-3 text-left text-sm tracking-wide">
-            {{ child.link }}
+            <a href="{{ child.link }}">Faucet</a>
+            <a href="{{ child.link }}">Website</a>
           </td>
           <td class="p-3 text-left text-sm tracking-wide">
             {{ child.loginType }}
