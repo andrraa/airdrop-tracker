@@ -16,6 +16,19 @@ export class HomeService {
   private httpClient = inject(HttpClient);
   private apiBaseUrl = environment.api_base_url;
 
+  // LIST AIRDROP
+  async index(): Promise<SuccessResponse<AirdropResponse[]>> {
+    const indexUrl = this.apiBaseUrl + '/v1/airdrop';
+
+    try {
+      return await firstValueFrom(
+        this.httpClient.get<SuccessResponse<AirdropResponse[]>>(indexUrl)
+      );
+    } catch (error) {
+      throw error as FailedResponse<AirdropValidationError>;
+    }
+  }
+
   // CREATE AIRDROP
   async store(data: AirdropRequest): Promise<SuccessResponse<AirdropResponse>> {
     const storeUrl = this.apiBaseUrl + '/v1/airdrop';

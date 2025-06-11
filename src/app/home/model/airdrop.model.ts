@@ -14,7 +14,7 @@ export interface AirdropRequest extends AirdropBase {}
 
 export interface AirdropResponse extends AirdropBase {
   id: number;
-  children?: AirdropBase[];
+  children?: AirdropResponse[];
 }
 
 export interface AirdropValidationError {

@@ -13,3 +13,66 @@
     <a routerLink="/airdrop/create" class="outline-btn-primary">New Airdrop</a>
   </div>
 </div>
+
+<!-- SKELETON -->
+<div *ngIf="isLoading" class="mt-8">
+  <div class="animate-pulse bg-gray-50/15 rounded-lg w-full h-[50px] p-4"></div>
+  <div
+    class="animate-pulse mt-4 bg-gray-50/15 rounded-lg w-full h-[200px] p-4"
+  ></div>
+</div>
+
+<!-- DATA -->
+<div
+  *ngIf="!isLoading"
+  class="mt-8 p-1 bg-gray-800 rounded-lg shadow-md shadow-gray-900 overflow-x-auto"
+>
+  <table class="w-full table">
+    <thead>
+      <tr class="text-white">
+        <th class="p-3 text-left text-sm tracking-wide">#</th>
+        <th class="p-3 text-left text-sm tracking-wide">Name</th>
+        <th class="p-3 text-left text-sm tracking-wide">Link</th>
+        <th class="p-3 text-left text-sm tracking-wide">Login Type</th>
+        <th class="p-3 text-left text-sm tracking-wide">Wallet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let parent of tableData">
+        <tr class="text-white">
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.id }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.name }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.link }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.loginType }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ parent.wallet }}
+          </td>
+        </tr>
+
+        <tr class="text-white" *ngFor="let child of parent.children">
+          <td class="p-3 text-left text-sm tracking-wide"></td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ child.name }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ child.link }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ child.loginType }}
+          </td>
+          <td class="p-3 text-left text-sm tracking-wide">
+            {{ child.wallet }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
