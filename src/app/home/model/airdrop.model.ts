@@ -10,9 +10,7 @@ interface AirdropBase {
   description?: string;
 }
 
-export interface AirdropRequest extends AirdropBase {
-  parentId: number;
-}
+export interface AirdropRequest extends AirdropBase {}
 
 export interface AirdropResponse extends AirdropBase {
   id: number;
@@ -20,13 +18,13 @@ export interface AirdropResponse extends AirdropBase {
 }
 
 export interface AirdropValidationError {
-  name: string[];
-  link: string[];
+  name?: string[];
+  link?: string[];
   faucetLink?: string[];
   referralLink?: string[];
-  type: string[];
-  loginType: string[];
+  type?: string[];
+  loginType?: string[];
   wallet?: string[];
-  status: string[];
+  status?: string[];
   description?: string[];
 }

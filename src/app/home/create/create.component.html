@@ -1,10 +1,10 @@
 <!-- Form -->
 <div class="border border-white/50 rounded-lg p-4 mt-4">
   <div class="mb-4 pb-4 border-b border-b-white/15">
-    <h2 class="text-white tracking-wide">Insert New Airdrop</h2>
+    <h2 class="text-white tracking-wide">Create New Airdrop</h2>
   </div>
 
-  <form>
+  <form [formGroup]="airdropForm" (ngSubmit)="create()">
     <div class="md:grid md:grid-cols-3 gap-4 mb-6">
       <div class="max-sm:mb-4">
         <label for="name" class="form-label block mb-2">
@@ -19,7 +19,16 @@
           placeholder="Airdrop name"
           class="form-input"
           autofocus
+          formControlName="name"
         />
+
+        <span
+          *ngIf="validationErrors.name?.length"
+          class="form-error"
+          >{{validationErrors.name?.[0]}}</span
+        >
+
+        <app-validation [control]="airdropForm.get('name')" label="Name" />
       </div>
 
       <div class="max-sm:mb-4">
@@ -34,22 +43,47 @@
           name="link"
           placeholder="Airdrop link"
           class="form-input"
+          formControlName="link"
+        />
+
+        <span
+          *ngIf="validationErrors.link?.length"
+          class="form-error"
+          >{{validationErrors.link?.[0]}}</span
+        >
+
+        <app-validation
+          [control]="airdropForm.get('link')"
+          label="Airdrop link"
         />
       </div>
 
       <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2"> Faucet Link </label>
+        <label for="name" class="form-label block mb-2">Faucet Link</label>
+
         <input
           type="text"
           id="faucetLink"
           name="faucetLink"
           placeholder="Airdrop faucet link"
           class="form-input"
+          formControlName="faucetLink"
+        />
+
+        <span
+          *ngIf="validationErrors.faucetLink?.length"
+          class="form-error"
+          >{{validationErrors.faucetLink?.[0]}}</span
+        >
+
+        <app-validation
+          [control]="airdropForm.get('faucetLink')"
+          label="Faucet link"
         />
       </div>
 
       <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2"> Referral Link </label>
+        <label for="name" class="form-label block mb-2">Referral Link</label>
 
         <input
           type="text"
@@ -57,38 +91,78 @@
           name="referralLink"
           placeholder="Referral Link"
           class="form-input"
+          formControlName="referralLink"
+        />
+
+        <span
+          *ngIf="validationErrors.referralLink?.length"
+          class="form-error"
+          >{{validationErrors.referralLink?.[0]}}</span
+        >
+
+        <app-validation
+          [control]="airdropForm.get('referralLink')"
+          label="Referral link"
         />
       </div>
 
       <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2">
+        <label for="type" class="form-label block mb-2">
           Type
           <span class="form-required">*</span>
         </label>
 
-        <select name="type" id="type" class="form-input">
+        <select
+          name="type"
+          id="type"
+          class="form-input !py-[10px]"
+          formControlName="type"
+        >
           <option value="" disabled selected>Select an options</option>
           <option value="1">Testnet</option>
           <option value="2">DePin</option>
         </select>
+
+        <span
+          *ngIf="validationErrors.type?.length"
+          class="form-error"
+          >{{validationErrors.type?.[0]}}</span
+        >
+
+        <app-validation [control]="airdropForm.get('type')" label="Type" />
       </div>
 
       <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2">
+        <label for="loginType" class="form-label block mb-2">
           Login Method
           <span class="form-required">*</span>
         </label>
+
         <input
           type="text"
           id="loginType"
           name="loginType"
           placeholder="Airdrop login method. Ex: Metamask, Phantom"
           class="form-input"
+          formControlName="loginType"
+        />
+
+        <span
+          *ngIf="validationErrors.loginType?.length"
+          class="form-error"
+          >{{validationErrors.loginType?.[0]}}</span
+        >
+
+        <app-validation
+          [control]="airdropForm.get('loginType')"
+          label="Login method"
         />
       </div>
 
-      <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2"> Wallet Address </label>
+      <div class="max-sm:mb-4 md:col-span-2">
+        <label for="wallet" class="form-label block mb-2">
+          Wallet Address
+        </label>
 
         <input
           type="text"
@@ -96,41 +170,46 @@
           name="wallet"
           placeholder="Wallet Address"
           class="form-input"
+          formControlName="wallet"
         />
+
+        <span
+          *ngIf="validationErrors.wallet?.length"
+          class="form-error"
+          >{{validationErrors.wallet?.[0]}}</span
+        >
+
+        <app-validation [control]="airdropForm.get('wallet')" label="Wallet" />
       </div>
 
       <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2">
+        <label for="status" class="form-label block mb-2">
           Status
           <span class="form-required">*</span>
         </label>
 
-        <input
-          type="text"
-          id="status"
+        <select
           name="status"
-          placeholder="Airdrop status"
-          class="form-input"
-        />
-      </div>
+          id="status"
+          class="form-input !py-[10px]"
+          formControlName="status"
+        >
+          <option value="" disabled selected>Select an options</option>
+          <option value="1">On Going</option>
+          <option value="0">Completed</option>
+        </select>
 
-      <div class="max-sm:mb-4">
-        <label for="name" class="form-label block mb-2">
-          Airdrop Parent
-          <span class="form-required">*</span>
-        </label>
+        <span
+          *ngIf="validationErrors.status?.length"
+          class="form-error"
+          >{{validationErrors.status?.[0]}}</span
+        >
 
-        <input
-          type="text"
-          id="parentId"
-          name="parentId"
-          placeholder="Airdrop Parent"
-          class="form-input"
-        />
+        <app-validation [control]="airdropForm.get('status')" label="Status" />
       </div>
 
       <div class="md:col-span-3">
-        <label for="name" class="form-label block mb-2">
+        <label for="description" class="form-label block mb-2">
           Airdrop Description
         </label>
 
@@ -140,6 +219,18 @@
           name="description"
           placeholder="Airdrop description"
           class="form-input"
+          formControlName="description"
+        />
+
+        <span
+          *ngIf="validationErrors.description?.length"
+          class="form-error"
+          >{{validationErrors.description?.[0]}}</span
+        >
+
+        <app-validation
+          [control]="airdropForm.get('description')"
+          label="Description"
         />
       </div>
     </div>
@@ -150,3 +241,6 @@
     </div>
   </form>
 </div>
+
+<!-- TOAST -->
+<p-toast />

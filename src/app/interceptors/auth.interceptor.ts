@@ -10,50 +10,52 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const accessToken = localStorage.getItem('access_token');
 
-  const clonedReq = accessToken
-    ? req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-    : req;
+  if (accessToken) {
+    const clonedReq = accessToken
+      ? req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+      : req;
 
-  return next(clonedReq).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        return authService.refreshToken().pipe(
-          switchMap((res) => {
-            const newToken = res.data?.accessToken;
+    return next(clonedReq).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          return authService.refreshToken().pipe(
+            switchMap((res) => {
+              const newToken = res.data?.accessToken;
 
-            if (!newToken) {
+              if (!newToken) {
+                clearUserData();
+                router.navigate(['/auth/sign-in']);
+                return throwError(() => error);
+              }
+
+              localStorage.setItem('access_token', newToken);
+
+              const retryReq = req.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${newToken}`,
+                },
+              });
+
+              return next(retryReq);
+            }),
+            catchError(() => {
               clearUserData();
               router.navigate(['/auth/sign-in']);
               return throwError(() => error);
-            }
+            })
+          );
+        }
 
-            localStorage.setItem('access_token', newToken);
+        return throwError(() => error);
+      })
+    );
+  }
 
-            const retryReq = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${newToken}`,
-              },
-            });
-
-            return next(retryReq);
-          }),
-          catchError(() => {
-            clearUserData();
-            router.navigate(['/auth/sign-in']);
-            return throwError(() => error);
-          })
-        );
-      }
-
-      clearUserData();
-      router.navigate(['/auth/sign-in']);
-      return throwError(() => error);
-    })
-  );
+  return next(req);
 };
 
 function clearUserData() {
