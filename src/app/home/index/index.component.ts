@@ -43,4 +43,15 @@ export class IndexComponent implements OnInit {
       this.isLoading = false;
     }
   }
+
+  // MODAL
+  selectedParentId: number | null = null;
+
+  openModal(parentId: number): void{
+    this.selectedParentId = parentId;
+  }
+
+  closeModal() {
+    this.selectedParentId = null;
+  }
 }

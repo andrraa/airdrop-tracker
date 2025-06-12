@@ -10,85 +10,137 @@
   </div>
 
   <div class="max-sm:mt-4">
-    <a routerLink="/airdrop/create" class="outline-btn-primary">New Airdrop</a>
+    <a routerLink="/airdrop/create" class="text-white px-4 py-2 text-sm tracking-wider bg-blue-600/50 rounded-md font-medium hover:bg-blue-600/40 duration-300 transition">New Airdrop</a>
   </div>
 </div>
 
 <!-- SKELETON -->
-<div *ngIf="isLoading" class="mt-8">
+<div *ngIf="isLoading" class="mt-4">
   <div class="animate-pulse bg-gray-50/15 rounded-lg w-full h-[50px] p-4"></div>
-  <div
-    class="animate-pulse mt-4 bg-gray-50/15 rounded-lg w-full h-[200px] p-4"
-  ></div>
+  <div class="animate-pulse mt-4 bg-gray-50/15 rounded-lg w-full h-[200px] p-4"></div>
 </div>
 
 <!-- DATA -->
-<div
-  *ngIf="!isLoading"
-  class="mt-8 rounded-md shadow-md overflow-x-auto border border-white/50"
->
+<div *ngIf="!isLoading" class="mt-4 p-2 rounded-md shadow-lg shadow-gray-800 overflow-x-auto">
   <table class="w-full table">
     <thead>
-      <tr class="text-white border-b border-b-white/50">
-        <th class="p-3 text-left text-sm tracking-wider">#</th>
-        <th class="p-3 text-left text-sm tracking-wider">Name</th>
-        <th class="p-3 text-left text-sm tracking-wider">Account</th>
-        <th class="p-3 text-left text-sm tracking-wider">Type</th>
-        <th class="p-3 text-left text-sm tracking-wider">Wallet</th>
-        <th class="p-3 text-left text-sm tracking-wider">Last Access</th>
-        <th class="p-3 text-left text-sm tracking-wider">Link</th>
-        <th class="p-3 text-left text-sm tracking-wider">Actions</th>
+      <tr class="text-white border-b border-b-white/30 bg-gray-800">
+        <th class="p-3 text-left text-sm tracking-wider w-[60px] whitespace-nowrap">#</th>
+        <th class="p-3 text-left text-sm tracking-wider whitespace-nowrap">Airdrop Name</th>
+        <th class="p-3 text-left text-sm tracking-wider w-[150px] whitespace-nowrap">Airdrop Login</th>
+        <th class="p-3 text-left text-sm tracking-wider w-[150px] whitespace-nowrap">Airdrop Type</th>
+        <th class="p-3 text-left text-sm tracking-wider w-[340px] whitespace-nowrap">Airdrop Wallet</th>
+        <th class="p-3 text-left text-sm tracking-wider w-[180px] whitespace-nowrap">Airdrop Link</th>
+        <th class="p-3 text-left text-sm tracking-wider w-[220px] whitespace-nowrap">Last Access</th>
+        <th class="p-3 text-left text-sm tracking-wider w-[180px] whitespace-nowrap">Actions</th>
       </tr>
     </thead>
-    <tbody>
-      <ng-container *ngFor="let parent of tableData">
+    <tbody class="divide-y divide-white/20">
+      <ng-container *ngFor="let parent of tableData; let i = index">
         <tr class="text-white">
-          <td class="p-3 text-left text-sm tracking-wide">
-            {{ parent.id }}
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
+            {{ i + 1 }}
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
-            {{ parent.name }}
+
+          <td class="py-2 px-3 text-left text-sm tracking-wide capitalize">
+            <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-3">
+              <span class="md:hidden block">{{ parent.name }}</span>
+              <span *ngIf="parent.status === 1"
+                    class="text-[10px] tracking-widest font-semibold px-2 py-1 bg-cyan-500/80 rounded-sm animate-pulse w-fit">
+                On Going
+              </span>
+              <span *ngIf="parent.status === 0"
+                    class="text-[10px] tracking-widest font-semibold px-2 py-1 bg-green-500/80 rounded-sm animate-pulse w-fit">
+                Completed
+              </span>
+              <span class="max-sm:hidden block">{{ parent.name }}</span>
+            </div>
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
+
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
             {{ parent.loginType }}
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
-            {{ parent.type }}
+
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
+            <span *ngIf="parent.type === '1'" class="text-xs tracking-widest font-semibold px-2 py-1 bg-red-600/50 rounded-sm">Testnet</span>
+            <span *ngIf="parent.type === '2'" class="text-xs tracking-widest font-semibold px-2 py-1 bg-blue-600/50 rounded-sm">DePin</span>
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
+
+          <td class="py-2 px-3 text-left text-sm tracking-wide line-clamp-1">
             {{ parent.wallet }}
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
-            {{ parent.type }}
+          
+          <td class="py-2 px-3 text-left">
+            <div class="flex items-center gap-2">
+              <a *ngIf="parent.referralLink" href="{{parent.referralLink}}" target="_blank" class="text-xs tracking-widest font-semibold hover:underline">Faucet</a>
+              <a href="{{parent.link}}" target="_blank" class="text-xs tracking-widest font-semibold hover:underline">Website</a>
+            </div>
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
-            <a [routerLink]="parent.link" target="_blank" class="text-sm px-2 py-1 rounded-md border mr-2">Faucet</a>
-            <a [routerLink]="parent.link" target="_blank" class="text-sm px-2 py-1 rounded-md border">Website</a>
+          
+          <td class="py-2 px-3 text-left text-sm tracking-wider">
+            <span>7 hours ago</span>
           </td>
-          <td class="p-3 text-left flex items-center gap-2">
-            <a href=""><i-feather name="plus-square"/></a>
-            <a href=""><i-feather name="edit"/></a>
-            <a href=""><i-feather name="trash2"/></a>
+
+          <td class="py-2 px-3 text-left">
+            <div class="flex items-center gap-2">
+              <button type="button" (click)="openModal(parent.id)" class="text-xs tracking-widest font-semibold hover:underline cursor-pointer">Add</button>
+              <a href="" class="text-xs tracking-widest font-semibold hover:underline">Edit</a>
+              <a href="" class="text-xs tracking-widest font-semibold hover:underline">Delete</a>
+            </div>
           </td>
+
         </tr>
 
         <tr class="text-white" *ngFor="let child of parent.children">
-          <td class="p-3 text-left text-sm tracking-wide"></td>
-          <td class="p-3 text-left text-sm tracking-wide">
+          <td class="py-2 px-3 text-left text-sm tracking-wide"></td>
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
             {{ child.name }}
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
             <a href="{{ child.link }}">Faucet</a>
             <a href="{{ child.link }}">Website</a>
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
             {{ child.loginType }}
           </td>
-          <td class="p-3 text-left text-sm tracking-wide">
+          <td class="py-2 px-3 text-left text-sm tracking-wide">
             {{ child.wallet }}
           </td>
         </tr>
       </ng-container>
     </tbody>
   </table>
+</div>
+
+<!-- MODAL -->
+<div *ngIf="selectedParentId" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
+  <div class="bg-gray-800 text-white rounded-lg shadow-lg shadow-gray-900 p-6 md:w-[480px] w-full">
+    <div class="mb-4 pb-4 border-b border-b-white/50">
+      <h2 class="font-medium tracking-wide">New Airdrop Ecosystem</h2>
+    </div>
+
+    <form>
+      <div class="max-sm:mb-4">
+        <label for="name" class="form-label block mb-2">
+          Name
+          <span class="form-required">*</span>
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Airdrop name"
+          class="form-input"
+          autofocus
+          formControlName="name"
+        />
+      </div>
+
+      <div class="flex items-center gap-2 mt-4">
+        <button type="button" (click)="closeModal()" routerLink="/" class="outline-btn-secondary">Cancel</button>
+        <button class="outline-btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
